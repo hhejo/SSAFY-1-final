@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="top">
+    <div class="columns">
+        <div class="column is-full featured_wrapper">
+            <img src="https://user-images.githubusercontent.com/89068148/170244470-36952b16-39eb-428f-bbe3-fe865a255d1c.jpg" class="featured" style="height:800px">
+            <div class="title_wrapper">
+                <h1 class="title has-text-white bouncing" style="color:#0431B4; font-size:70px">{{ pick_movie.title }} 말고, <br>다른 특별한걸 원하는군요 ?</h1><br><br><br><br><br><br><br><br>
+                <div class="container">
+                    <div class="item">
+                        <a href="{% url 'movies:movie_detail' pick_movie.pk %}" class="link-secondary text-danger text-decoration-none fs-1 fw-bold">아니에요.. 방금..괜찮아 졌어요 <i class="fa-solid fa-person-running"></i></a>
+                    </div>
+                    <br>
+                    <div class="item">
+                        <a href="#actors_page" class="item link-secondary text-danger text-decoration-none fs-4 fw-bold">날 좀 더 자극시켜 봐요 [진행하기]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a name="actors_page">
+<div class="container">
+	<div class="columns is-multiline p-0 pt-6 last">
+		<div class="column is-full">
+			<h1 class="has-text-white bouncing" style="color:#0431B4; font-size:60px">이 배우들을 찾고 있나요? ( {{ recommend_movies_by_actors|length }} )</h1>
+		</div>
+        <div class="container-fluid px-4" style="margin:10px;">
+            <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
+                {% for movie in recommend_movies_by_actors %}
+                <div class="my-5">
+                    <a href="{% url 'movies:movie_detail' movie.movie.pk %}">
+                    <div class="movie-card">
+                        {% for img in movie.actor_img %}
+                        <img src="{{ img }}" alt="배우 이미지" class="rounded">
+                        {% endfor %}
+                        <div class="movie-info">
+                        <span class="text-danger text-center fs-2 fw-bold">{{ movie.movie.title }}</span>
+                        <hr style="border-top: 2px solid #f8f9fa; width: 100%;">
+                        <span class="movie-overview d-inline-block text-white" style="color:white">{{ movie.actor }}</span>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <a href="{% url 'movies:for_you2' pick_movie.pk %}" class="item link-secondary text-danger text-decoration-none fs-3 fw-bold">음... 아니요 ?</a>
+
+<style>
+    
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;800&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap');
+    body,
+    html {
+        background: #000000;
+        padding: 0;
+        margin: 0;
+        padding-bottom: 6rem;
+        width: 100%;
+    }
+
+    .bouncing {
+        color: #255;
+        font-size: 160px;
+        margin-top: 110px;
+        -webkit-animation: bounce 3.0s -0.3s infinite;
+                animation: bounce 3.0s -0.3s infinite;
+    }
+
+
+    @-webkit-keyframes bounce {
+      8% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.8);
+        opacity: 1;
+      }
+      10% {
+        transform: scale(1.8);
+        -webkit-transform: scale2);
+        opacity: 0;
+            }
+    }
+    
+    @keyframes bounce {
+      8% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.8);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(1.8);
+        -webkit-transform: scale2);
+        opacity: 0;
+            }
+    }
+
+
+
+    h1 {
+        font-family: 'Black And White Picture', sans-serif;
+    }
+    .container {
+        padding-bottom: 3rem;
+    }
+    img {
+        -webkit-box-reflect: below 5px
+            linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
+        -webkit-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+    .container img:hover {
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    .last {
+        margin-top: 6.5rem;
+    }
+    .featured_wrapper {
+        position: relative;
+    }
+    .featured_wrapper img {
+        width: 100%;
+        width: 100%;
+        height: 350px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: top;
+        object-position: top;
+    }
+    .title_wrapper {
+        position: absolute;
+        width: 100%;
+        left: 2rem;
+        bottom: 2rem;
+        padding: 20px 40px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .title_wrapper h1 {
+        width: 70%;
+    }
+    .button {
+        background: #f40612 !important;
+        color: #fff !important;
+        font-size: 18px;
+        padding: 0.5rem 3rem;
+        outline: none;
+        border: 0 !important;
+    }
+    @media (max-width: 768px) {
+        .title_wrapper {
+            text-align: center;
+            left: 0;
+        }
+        .title_wrapper h1 {
+            font-size: 32px !important;
+            width: 100%;
+        }
+        .container {
+            padding: 20px;
+        }
+    }
+    @media (max-width: 480px) {
+        .column.is-one-quarter img {
+            width: 100%;
+            margin-bottom: 7rem;
+        }
+    }
+
+    .movie-card {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      .movie-card img {
+        width: 100%;
+        height: 100%;
+        transition: all 0.25s linear;
+      }
+      .movie-card:hover img {
+        opacity: 0.07;
+        transform: scale(1.25);
+        border-radius: 0.375rem!important;
+      }
+      .movie-info {
+        width: 80%;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%);
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transition: all 600ms ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .movie-card:hover .movie-info {
+        opacity: 1;
+        top: 50%;
+      }
+</style>
+
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br><br>
+<div class="container">
+  <h2 class="my-3 border-bottom pb-2 text-secondary fw-bold">Login</h2>
+  <form action="{% url 'accounts:login' %}" method="post" class="post-form my-3">
+    {% csrf_token %}
+    <!-- 오류 표시 -->
+    {% with form=form %}
+      {% include 'errors.html' %}
+    {% endwith %}
+    <!-- 오류 표시 -->
+    <div class="form-group my-3">
+      <label for="username" class="form-label text-secondary">Username</label>
+      <input type="text" name="username" id="username" class="form-control bg-secondary text-light">
+    </div>
+    <div class="form-group my-3">
+      <label for="password" class="form-label text-secondary">Password</label>
+      <input type="password" name="password" id="password" class="form-control bg-secondary text-light">
+    </div>
+    <button type="submit" class="btn btn-danger fw-bold">Login</button>
+    <a href="{% url 'articles:articles' %}" class="btn btn-secondary ms-auto fw-bold" style="width: 68.25px;">Back</a>
+  </form>
+  <a href="{% url 'accounts:kakao_login' %}">
+    <img src="https://user-images.githubusercontent.com/89068148/170420840-ee7595d5-f64a-4cfb-9050-b945c4015f3e.png" alt="">
+  </a>
+</div>
+{% endblock %}
